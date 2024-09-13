@@ -1,20 +1,13 @@
 import {createRoot} from 'react-dom/client';
-
-// import statement to indicate that you need to bundle index.scss
-import './index.scss';
+import {MainView} from './components/main-view/main-view';
+import './index.scss'; // import statement to indicate that you need to bundle index.scss
 
 // main component
 const MyFlixApplication = () => {
-  return (
-    <div className="my-flix">
-      <div>Good morning</div>
-    </div>
-  );
+  return <MainView />;
 };
 
 // root finder
 const container = document.querySelector('#root');
 const root = createRoot(container);
-
-// Tells React to render your app in the root DOM element
-root.render(<MyFlixApplication />);
+root.render(<MyFlixApplication />); // Tells React to render your app in the root DOM element
