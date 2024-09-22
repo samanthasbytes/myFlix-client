@@ -1,32 +1,30 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {MovieCard} from '../movie-card/movie-card';
 import {MovieView} from '../movie-view/movie-view';
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
-    {
-      id: 1,
-      title: 'Pretty Woman',
-      description:
-        'A wealthy businessman falls in love with a charming escort he hires to be his date for several business events.',
-      director: 'Garry Marshall',
-      genre: 'Romance',
-      image:
-        'https://m.media-amazon.com/images/M/MV5BNjk2ODQzNDYxNV5BMl5BanBnXkFtZTgwMTcyNDg4NjE@._V1_.jpg',
-    },
-    {
-      id: 2,
-      title: 'Pulp Fiction',
-      description:
-        "The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
-      director: 'Quentin Tarantino',
-      genre: 'Crime',
-      image:
-        'https://m.media-amazon.com/images/M/MV5BMTU2Mjc0MTg4MF5BMl5BanBnXkFtZTcwOTA0MzU5Ng@@._V1_FMjpg_UY1652_.jpg',
-    },
-  ]);
+  const [movies, setMovies] = useState([]);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
+
+  useEffect(() => {
+    fetch('https://cinematech-api-21d2d91d86c8.herokuapp.com/movies')
+      .then((response) => response.json())
+      .then((movies) => {
+        const moviesFromApi = movies.map((movie) => {
+          return {
+            _id: movie._id,
+            Title: movie.Title,
+            Description: movie.Description,
+            Director: movie.Director,
+            Genre: movie.Genre,
+            ImagePath:movie.ImagePath,
+          };
+        });
+        
+        setMovies(moviesFromApi);
+      });
+  }, []); // the empty array ensures this runs only when the component mounts
 
   if (selectedMovie) {
     return (
@@ -45,7 +43,7 @@ export const MainView = () => {
     <div>
       {movies.map((movie) => (
         <MovieCard
-          key={movie.id}
+          key={movie._id}
           movie={movie}
           onMovieClick={(newSelectedMovie) => {
             setSelectedMovie(newSelectedMovie);
