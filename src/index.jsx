@@ -1,10 +1,15 @@
 import {createRoot} from 'react-dom/client';
+import Container from 'react-bootstrap/Container';
 import {MainView} from './components/main-view/main-view';
 import './index.scss'; // import statement to indicate that you need to bundle index.scss
 
 // main component
 const MyFlixApplication = () => {
-  return <MainView />;
+  return (
+    <Container>
+      <MainView />
+    </Container>
+  );
 };
 
 // root finder

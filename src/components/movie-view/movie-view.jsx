@@ -1,8 +1,14 @@
+import Button from 'react-bootstrap/Button';
+
 export const MovieView = ({movie, onBackClick}) => {
   return (
     <>
       <div>
-        {/* <img src={movie.ImagePath} style={{width: '300px', height: 'auto'}} /> */}
+        <img
+          className="w-100"
+          // src={movie.ImagePath}
+          src="https://placehold.co/200x300"
+        />
       </div>
       <div>
         <span>Title: </span>
@@ -20,9 +26,9 @@ export const MovieView = ({movie, onBackClick}) => {
         <span>Genre: </span>
         <span>{movie.Genre.Name}</span>
       </div>
-      <div>
-        <button onClick={onBackClick}>Back</button>
-      </div>
+      <Button variant="primary" onClick={onBackClick}>
+        Back
+      </Button>
     </>
   );
 };
