@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import {Link} from 'react-router-dom';
 
-export const MovieCard = ({movie, onMovieClick}) => {
+export const MovieCard = ({movie}) => {
   return (
     <Card className="h-100">
       <Card.Img
@@ -39,5 +39,4 @@ MovieCard.propTypes = {
       // deathYear: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([null])]),
     }).isRequired,
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired,
 };
