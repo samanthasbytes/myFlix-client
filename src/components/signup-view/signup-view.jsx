@@ -10,15 +10,17 @@ export const SignupView = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    
+    const formattedBirthday = new Date(birthday).toLocaleDateString('en-US');
 
     const data = {
       Username: username,
       Password: password,
       Email: email,
-      Birthday: birthday,
+      Birthday: formattedBirthday,
     };
 
-    fetch('URL', {
+    fetch('https://cinematech-api-21d2d91d86c8.herokuapp.com/users', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
