@@ -9,11 +9,7 @@ export const MovieView = ({movies}) => {
   return (
     <>
       <div>
-        <img
-          className="w-100"
-          // src={movie.ImagePath}
-          src="https://placehold.co/200x300"
-        />
+        <img className="w-100" src={movie.imagePath} />
       </div>
       <div>
         <span>Title: </span>

@@ -6,18 +6,16 @@ import {Link} from 'react-router-dom';
 export const MovieCard = ({movie}) => {
   return (
     <Card className="h-100">
-      <Card.Img
-        variant="top"
-        // src={movie.ImagePath}
-        src="https://placehold.co/200x300"
-      />
+      <Card.Img variant="top" src={movie.imagePath} />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>
         <Card.Text>{movie.Description}</Card.Text>
+      </Card.Body>
+      <Card.Subtitle>
         <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
           <Button variant="link">Open</Button>
         </Link>
-      </Card.Body>
+      </Card.Subtitle>
     </Card>
   );
 };
@@ -27,7 +25,7 @@ MovieCard.propTypes = {
     _id: PropTypes.string.isRequired,
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
-    // ImagePath: PropTypes.string.isRequired,
+    imagePath: PropTypes.string.isRequired,
     Genre: PropTypes.shape({
       Name: PropTypes.string.isRequired,
       // Description: PropTypes.string.isRequired,
