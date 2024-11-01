@@ -1,9 +1,5 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import {Link} from 'react-router-dom';
-
-// IN PROGRESS: '/favorites' and '/profile' links
+import {Container, Nav, Navbar} from 'react-bootstrap';
 
 export const NavigationBar = ({user, onLoggedOut}) => {
   return (
@@ -17,8 +13,8 @@ export const NavigationBar = ({user, onLoggedOut}) => {
           <Nav className="ms-auto">
             {user && (
               <>
-                <Nav.Link as={Link} to="/favorites">
-                  Favorites
+                <Nav.Link as={Link} to="/">
+                  Home
                 </Nav.Link>
                 <Nav.Link as={Link} to="/profile">
                   Profile

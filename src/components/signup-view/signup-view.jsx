@@ -1,6 +1,5 @@
 import {useState} from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import {Button, Form} from 'react-bootstrap';
 
 export const SignupView = () => {
   const [username, setUsername] = useState('');
@@ -10,14 +9,12 @@ export const SignupView = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-    const formattedBirthday = new Date(birthday).toLocaleDateString('en-US');
 
     const data = {
       Username: username,
       Password: password,
       Email: email,
-      Birthday: formattedBirthday,
+      Birthday: birthday,
     };
 
     fetch('https://cinematech-api-21d2d91d86c8.herokuapp.com/users', {
@@ -30,6 +27,7 @@ export const SignupView = () => {
       if (response.ok) {
         alert('Signup successful');
         window.location.reload();
+        // TODO: redirect to login page
       } else {
         alert('Signup failed');
       }
@@ -43,6 +41,7 @@ export const SignupView = () => {
         <Form.Control
           type="text"
           value={username}
+          autoComplete="username"
           onChange={(e) => setUsername(e.target.value)}
           required
         />
@@ -52,6 +51,7 @@ export const SignupView = () => {
         <Form.Control
           type="password"
           value={password}
+          autoComplete="new-password"
           onChange={(e) => setPassword(e.target.value)}
           minLength="8"
           maxLength="16"
@@ -76,7 +76,7 @@ export const SignupView = () => {
           required
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" className="my-2" type="submit">
         Create Account
       </Button>
     </Form>
