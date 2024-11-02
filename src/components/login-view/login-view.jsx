@@ -1,6 +1,5 @@
 import {useState} from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import {Button, Form} from 'react-bootstrap';
 
 export const LoginView = ({onLoggedIn}) => {
   const [username, setUsername] = useState('');
@@ -44,6 +43,7 @@ export const LoginView = ({onLoggedIn}) => {
         <Form.Control
           type="text"
           value={username}
+          autoComplete="username"
           onChange={(e) => setUsername(e.target.value)}
           maxLength="16"
           required
@@ -54,13 +54,14 @@ export const LoginView = ({onLoggedIn}) => {
         <Form.Control
           type="password"
           value={password}
+          autoComplete="current-password"
           onChange={(e) => setPassword(e.target.value)}
           minLength="8"
           maxLength="16"
           required
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" className="my-2">
         Log In
       </Button>
     </Form>
