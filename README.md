@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://api.netlify.com/api/v1/badges/ed312305-813f-48ab-8f68-8ce88183ea63/deploy-status" alt="Netlify Status">
+</p>
+
 ### Project Setup
 
 - Install Parcel: run the command `npm install --save-dev parcel` from within the project directory
