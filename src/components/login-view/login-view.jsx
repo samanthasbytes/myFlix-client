@@ -10,19 +10,19 @@ export const LoginView = ({onLoggedIn}) => {
 
     const data = {
       Username: username,
-      Password: password,
+      Password: password
     };
 
     fetch('https://cinematech-api-21d2d91d86c8.herokuapp.com/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
     })
       .then((response) => response.json()) // used to extract JWT sent by API
       .then((data) => {
-        console.log('Login response: ', data); // contains sensitive user info
+        // console.log('Login response: ', data);
         if (data.user) {
           localStorage.setItem('user', JSON.stringify(data.user));
           localStorage.setItem('token', JSON.stringify(data.token));

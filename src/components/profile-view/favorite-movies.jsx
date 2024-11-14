@@ -13,7 +13,7 @@ export const FavoriteMovies = () => {
     fetch(
       `https://cinematech-api-21d2d91d86c8.herokuapp.com/users/${user.Username}`,
       {
-        headers: {Authorization: `Bearer ${token}`},
+        headers: {Authorization: `Bearer ${token}`}
       }
     )
       .then((response) => response.json())

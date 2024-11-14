@@ -14,15 +14,15 @@ export const SignupView = () => {
       Username: username,
       Password: password,
       Email: email,
-      Birthday: birthday,
+      Birthday: birthday
     };
 
     fetch('https://cinematech-api-21d2d91d86c8.herokuapp.com/users', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      }
     }).then((response) => {
       if (response.ok) {
         alert('Signup successful');

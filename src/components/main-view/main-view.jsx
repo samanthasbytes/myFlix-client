@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {Col, Row} from 'react-bootstrap';
 import {NavigationBar} from '../navigation-bar/navigation-bar';
-import {MovieCard} from '../movie-card/movie-card';
+import {MoviesList} from '../movies-list/movies-list';
 import {MovieView} from '../movie-view/movie-view';
 import {LoginView} from '../login-view/login-view';
 import {SignupView} from '../signup-view/signup-view';
@@ -105,7 +105,7 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col> // TODO: rm or replace with error message
+                  <Col>The list is empty!</Col>
                 ) : (
                   <Col md={8}>
                     <MovieView />
@@ -118,21 +118,7 @@ export const MainView = () => {
           <Route
             path="/"
             element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col> // TODO: rm or replace with error message
-                ) : (
-                  <>
-                    {movies.map((movie) => (
-                      <Col className="mb-4" key={movie._id} md={3}>
-                        <MovieCard movie={movie} />
-                      </Col>
-                    ))}
-                  </>
-                )}
-              </>
+              <>{!user ? <Navigate to="/login" replace /> : <MoviesList />}</>
             }
           />
 
