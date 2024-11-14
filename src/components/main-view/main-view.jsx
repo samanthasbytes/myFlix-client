@@ -48,8 +48,6 @@ export const MainView = () => {
   const onLoggedIn = (user, token) => {
     setUser(user);
     setToken(token);
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', token);
   };
 
   const onLoggedOut = () => {
