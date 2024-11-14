@@ -7,13 +7,18 @@ import {LoginView} from '../login-view/login-view';
 import {SignupView} from '../signup-view/signup-view';
 import {ProfileView} from '../profile-view/profile-view';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+import {setMovies} from '../../redux/reducers/movies';
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const storedToken = localStorage.getItem('token');
   const [user, setUser] = useState(storedUser ? storedUser : null); // initialize user
   const [token, setToken] = useState(storedToken ? storedToken : null); // initialize token
-  const [movies, setMovies] = useState([]);
+
+  const movies = useSelector((state) => state.movies.list);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!token) {
@@ -21,7 +26,7 @@ export const MainView = () => {
     }
 
     fetch('https://cinematech-api-21d2d91d86c8.herokuapp.com/movies', {
-      headers: {Authorization: `Bearer ${token}`},
+      headers: {Authorization: `Bearer ${token}`}
     })
       .then((response) => response.json())
       .then((movies) => {
@@ -32,11 +37,11 @@ export const MainView = () => {
             Description: movie.Description,
             Director: movie.Director,
             Genre: movie.Genre,
-            imagePath: movie.imagePath,
+            imagePath: movie.imagePath
           };
         });
 
-        setMovies(moviesFromApi);
+        dispatch(setMovies(moviesFromApi));
       });
   }, [token]);
 
@@ -103,7 +108,7 @@ export const MainView = () => {
                   <Col>The list is empty!</Col> // TODO: rm or replace with error message
                 ) : (
                   <Col md={8}>
-                    <MovieView movies={movies} />
+                    <MovieView />
                   </Col>
                 )}
               </>
