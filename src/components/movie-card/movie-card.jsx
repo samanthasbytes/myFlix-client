@@ -23,17 +23,17 @@ export const MovieCard = ({movie}) => {
         method: isCurrentlyFavorited ? 'DELETE' : 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       });
 
       if (response.ok) {
         if (isCurrentlyFavorited) {
           setFavorites(favorites.filter((_id) => _id !== movieId)); // remove from favorites
-          console.log('Movie removed from favorites!');
+          // console.log('Movie removed from favorites!');
         } else {
           setFavorites([...favorites, movieId]); // add to favorites
-          console.log('Movie added to favorites!');
+          // console.log('Movie added to favorites!');
         }
       } else {
         alert('Failed to toggle favorites status');
@@ -73,14 +73,14 @@ MovieCard.propTypes = {
     Description: PropTypes.string.isRequired,
     imagePath: PropTypes.string.isRequired,
     Genre: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
+      Name: PropTypes.string.isRequired
       // Description: PropTypes.string.isRequired,
     }).isRequired,
     Director: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
+      Name: PropTypes.string.isRequired
       // Bio: PropTypes.string.isRequired,
       // birthYear: PropTypes.number.isRequired,
       // deathYear: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([null])]),
-    }).isRequired,
-  }).isRequired,
+    }).isRequired
+  }).isRequired
 };

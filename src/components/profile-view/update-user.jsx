@@ -15,7 +15,7 @@ export const UpdateUser = ({user, updatedUser}) => {
       Username: username,
       Password: password,
       Email: email,
-      Birthday: birthday,
+      Birthday: birthday
     };
 
     fetch(
@@ -24,15 +24,15 @@ export const UpdateUser = ({user, updatedUser}) => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       }
     )
       .then((response) => {
-        console.log(response); // ! rm before production
+        // console.log(response);
         if (response.ok) {
-          console.log('Update successful!');
+          alert('Update successful!');
           return response.json();
         } else {
           alert('Update failed!');
@@ -75,10 +75,10 @@ export const UpdateUser = ({user, updatedUser}) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Form.Text id="passwordHelpBlock" muted>
+        {/* <Form.Text id="passwordHelpBlock" muted>
           Password must be 8-16 characters long and contain only alphanumeric
           characters (letters and numbers). Special characters are not allowed.
-        </Form.Text>
+        </Form.Text> */}
       </Form.Group>
 
       <Form.Group controlId="formEmail">

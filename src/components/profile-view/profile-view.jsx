@@ -13,11 +13,11 @@ export const ProfileView = ({user, token, updatedUser, onLoggedOut}) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       }
     ).then((response) => {
-      console.log(response);
+      // console.log(response);
       if (response.ok) {
         onLoggedOut();
         alert('Account deleted successfully.');
