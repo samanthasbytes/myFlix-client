@@ -20,12 +20,17 @@ export const ProfileView = ({user, token, updatedUser, onLoggedOut}) => {
       // console.log(response);
       if (response.ok) {
         onLoggedOut();
-        alert('Account deleted successfully.');
+        alert('Account deleted successfully, you will now be redirected.');
+        window.location.href = '/';
       } else {
         alert('Failed to delete account.');
       }
     });
   };
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <>
@@ -43,7 +48,7 @@ export const ProfileView = ({user, token, updatedUser, onLoggedOut}) => {
             <UpdateUser user={user} token={token} updatedUser={updatedUser} />
           </>
 
-          <>
+          <div className="d-flex justify-content-end">
             <Button
               variant="link"
               className="my-2 px-0"
@@ -54,7 +59,7 @@ export const ProfileView = ({user, token, updatedUser, onLoggedOut}) => {
             >
               Delete Account
             </Button>
-          </>
+          </div>
 
           <FavoriteMovies />
         </Col>

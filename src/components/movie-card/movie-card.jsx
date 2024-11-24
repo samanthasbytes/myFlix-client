@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Button, Card} from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -11,12 +11,12 @@ export const MovieCard = ({movie}) => {
 
   const handleFavoriteToggle = async (movieId) => {
     const user = JSON.parse(localStorage.getItem('user'));
-    const username = `${user.Username}`;
+    // const username = `${user.Username}`;
     const token = localStorage.getItem('token');
 
     const isCurrentlyFavorited = favorites.includes(movieId);
 
-    const url = `https://cinematech-api-21d2d91d86c8.herokuapp.com/users/${username}/movies/${movieId}`;
+    const url = `https://cinematech-api-21d2d91d86c8.herokuapp.com/users/${user.Username}/movies/${movieId}`;
 
     try {
       const response = await fetch(url, {
@@ -44,7 +44,7 @@ export const MovieCard = ({movie}) => {
   };
 
   return (
-    <Card className="h-100">
+    <Card className="h-100 moviecard">
       <Card.Img variant="top" src={movie.imagePath} />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>

@@ -61,10 +61,11 @@ export const LoginView = ({onLoggedIn}) => {
           required
         />
       </Form.Group>
-      <Button variant="primary" type="submit" className="my-2">
-        Log In
-      </Button>
+      <div className="d-flex justify-content-end">
+        <Button variant="primary" type="submit" className="my-2">
+          Log In
+        </Button>
+      </div>
     </Form>
   );
 };
-//

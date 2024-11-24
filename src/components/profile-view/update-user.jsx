@@ -1,6 +1,8 @@
 import {useState} from 'react';
 import {Button, Form} from 'react-bootstrap';
 
+// FIXME: validate user inputs, app crashes under certain circumstances, e.g., 1 letter password (user ends up being set to undefined after 'update failed' alert
+
 export const UpdateUser = ({user, updatedUser}) => {
   const token = localStorage.getItem('token');
   const [username, setUsername] = useState('');
@@ -35,7 +37,7 @@ export const UpdateUser = ({user, updatedUser}) => {
           alert('Update successful!');
           return response.json();
         } else {
-          alert('Update failed!');
+          alert('Update failed.');
         }
       })
       .then((data) => {
@@ -100,9 +102,11 @@ export const UpdateUser = ({user, updatedUser}) => {
           required
         />
       </Form.Group>
-      <Button variant="primary" type="submit" className="my-2">
-        Update
-      </Button>
+      <div className="d-flex justify-content-end">
+        <Button variant="primary" type="submit" className="my-2">
+          Update
+        </Button>
+      </div>
     </Form>
   );
 };
