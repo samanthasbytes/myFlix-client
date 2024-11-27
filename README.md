@@ -1,5 +1,6 @@
 <p align="center">
   <img src="https://api.netlify.com/api/v1/badges/ed312305-813f-48ab-8f68-8ce88183ea63/deploy-status" alt="Netlify Status">
+  <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier" alt="Badge: Code Style Prettier">
 </p>
 
 ### Project Setup
