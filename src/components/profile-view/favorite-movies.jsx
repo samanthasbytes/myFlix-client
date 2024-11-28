@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 export const FavoriteMovies = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -30,16 +31,18 @@ export const FavoriteMovies = () => {
 
   return (
     <>
-      <>
-        <h2>Favorite Movies</h2>
-      </>
+      <h2>Favorite Movies</h2>
 
       {favoriteMovies.length === 0 ? (
         <p>No favorite movies</p>
       ) : (
         <ul>
           {favoriteMovies.map((movie) => (
-            <li key={movie._id}>{movie.Title}</li>
+            <li key={movie._id}>
+              <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
+                {movie.Title}
+              </Link>
+            </li>
           ))}
         </ul>
       )}
