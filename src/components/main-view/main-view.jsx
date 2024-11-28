@@ -6,7 +6,7 @@ import {MovieView} from '../movie-view/movie-view';
 import {LoginView} from '../login-view/login-view';
 import {SignupView} from '../signup-view/signup-view';
 import {ProfileView} from '../profile-view/profile-view';
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Navigate, Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {setMovies} from '../../redux/reducers/movies';
 
@@ -45,11 +45,6 @@ export const MainView = () => {
       });
   }, [token]);
 
-  const onLoggedIn = (user, token) => {
-    setUser(user);
-    setToken(token);
-  };
-
   const onLoggedOut = () => {
     setUser(null);
     setToken(null);
@@ -75,6 +70,10 @@ export const MainView = () => {
                 ) : (
                   <Col md={5}>
                     <SignupView />
+                    <div className="mt-3 small text-end">
+                      <span>Already have an account? </span>
+                      <Link to="/login">Log in</Link>
+                    </div>
                   </Col>
                 )}
               </>
@@ -89,7 +88,16 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <LoginView onLoggedIn={onLoggedIn} />
+                    <LoginView
+                      onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                      }}
+                    />
+                    <div className="mt-3 small text-end">
+                      <span>Don't have an account? </span>
+                      <Link to="/signup">Sign up</Link>
+                    </div>
                   </Col>
                 )}
               </>

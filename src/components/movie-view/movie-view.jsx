@@ -2,6 +2,7 @@ import {useParams} from 'react-router';
 import {Link} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import {useSelector} from 'react-redux';
+import {FavoritesButton} from '../profile-view/favorites-button.jsx';
 
 export const MovieView = () => {
   const movies = useSelector((state) => state.movies.list);
@@ -32,6 +33,7 @@ export const MovieView = () => {
       <Link to={`/`}>
         <Button className="back-button my-2">Back</Button>
       </Link>
+      <FavoritesButton movie={movie} />
     </>
   );
 };

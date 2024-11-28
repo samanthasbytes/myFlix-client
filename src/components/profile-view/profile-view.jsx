@@ -3,8 +3,6 @@ import {UserInfo} from './user-info';
 import {UpdateUser} from './update-user';
 import {FavoriteMovies} from './favorite-movies';
 
-// TODO: feed favoriteMovies into MovieCard component to display other properties (title, description, etc.)
-
 export const ProfileView = ({user, token, updatedUser, onLoggedOut}) => {
   const DeleteAccount = () => {
     fetch(
@@ -20,7 +18,8 @@ export const ProfileView = ({user, token, updatedUser, onLoggedOut}) => {
       // console.log(response);
       if (response.ok) {
         onLoggedOut();
-        alert('Account deleted successfully.');
+        alert('Account deleted successfully, you will now be redirected.');
+        window.location.href = '/';
       } else {
         alert('Failed to delete account.');
       }
@@ -43,7 +42,7 @@ export const ProfileView = ({user, token, updatedUser, onLoggedOut}) => {
             <UpdateUser user={user} token={token} updatedUser={updatedUser} />
           </>
 
-          <>
+          <div className="d-flex justify-content-end">
             <Button
               variant="link"
               className="my-2 px-0"
@@ -54,7 +53,7 @@ export const ProfileView = ({user, token, updatedUser, onLoggedOut}) => {
             >
               Delete Account
             </Button>
-          </>
+          </div>
 
           <FavoriteMovies />
         </Col>

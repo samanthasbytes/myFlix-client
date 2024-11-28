@@ -8,10 +8,9 @@ export const MoviesFilter = () => {
 
   return (
     <Form.Control
-      className="my-2"
+      className="my-3"
       type="text"
-      placeholder="Search...
-"
+      placeholder="Search..."
       value={filter}
       onChange={(e) => dispatch(setFilter(e.target.value))}
     />

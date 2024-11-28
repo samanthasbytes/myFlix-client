@@ -26,8 +26,7 @@ export const SignupView = () => {
     }).then((response) => {
       if (response.ok) {
         alert('Signup successful');
-        window.location.reload();
-        // TODO: redirect to login page
+        window.location.href = '/login';
       } else {
         alert('Signup failed');
       }
@@ -76,9 +75,11 @@ export const SignupView = () => {
           required
         />
       </Form.Group>
-      <Button variant="primary" className="my-2" type="submit">
-        Create Account
-      </Button>
+      <div className="d-flex justify-content-end">
+        <Button variant="primary" className="my-2" type="submit">
+          Create Account
+        </Button>
+      </div>
     </Form>
   );
 };

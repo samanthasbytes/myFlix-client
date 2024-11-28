@@ -1,6 +1,16 @@
 // Place custom styles BEFORE importing Bootstrap SCSS
 $primary: RoyalBlue;
-$primary-text: #f8f9fa;
 $body-bg: #f8f9fa;
+
+@media (hover: hover) {
+  /* styles for devices with hover capabilities */
+  .moviecard {
+    transition: transform 0.2s ease;
+  }
+
+  .moviecard:hover {
+    transform: scale(1.02);
+  }
+}
 
 @import '~bootstrap/scss/bootstrap.scss';
