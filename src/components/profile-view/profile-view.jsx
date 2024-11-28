@@ -3,8 +3,6 @@ import {UserInfo} from './user-info';
 import {UpdateUser} from './update-user';
 import {FavoriteMovies} from './favorite-movies';
 
-// TODO: feed favoriteMovies into MovieCard component to display other properties (title, description, etc.)
-
 export const ProfileView = ({user, token, updatedUser, onLoggedOut}) => {
   const DeleteAccount = () => {
     fetch(
@@ -27,10 +25,6 @@ export const ProfileView = ({user, token, updatedUser, onLoggedOut}) => {
       }
     });
   };
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <>

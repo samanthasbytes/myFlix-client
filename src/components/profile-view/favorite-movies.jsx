@@ -1,24 +1,18 @@
-// diplaying favorite movies in user Profile Page
-
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
 export const FavoriteMovies = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const token = localStorage.getItem('token');
+  const [favoriteMovieIds, setFavoriteMovieIds] = useState([]); // store favorite movie IDs
+  const movies = useSelector((state) => state.movies.list); // get all movies from Redux store
 
-  // state to store favorite movie IDs
-  const [favoriteMovieIds, setFavoriteMovieIds] = useState([]);
-
-  // get the list of all movies from the Redux store
-  const movies = useSelector((state) => state.movies.list);
-
-  // filter the movies to get only the favorite movies
+  // filter favorite movies (NOT favorite movie IDs)
   const favoriteMovies = movies.filter((movie) =>
     favoriteMovieIds.includes(movie._id)
   );
 
-  // fetch favorite movie IDs... we're not using local storage as the users favorites could have changed since then...
+  // fetch favorite movie IDs
   useEffect(() => {
     fetch(
       `https://cinematech-api-21d2d91d86c8.herokuapp.com/users/${user.Username}`,
@@ -29,10 +23,10 @@ export const FavoriteMovies = () => {
       .then((response) => response.json())
       .then((data) => {
         setFavoriteMovieIds(data.favoriteMovies);
-        console.log(data.favoriteMovies);
+        // console.log(data.favoriteMovies);
       })
       .catch((error) => console.error('Error fetching data: ', error));
-  }, [user.Username, token]); // fetch data only once when component mounts
+  }, [user.Username, token, favoriteMovieIds]); // fetch when component mounts, favoriteMovieIds change
 
   return (
     <>
