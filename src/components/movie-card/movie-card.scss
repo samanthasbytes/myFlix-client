@@ -1,0 +1,10 @@
+// hover: hover targets devices with a mouse or trackpad
+@media (hover: hover) {
+  .moviecard {
+    transition: transform 0.2s ease;
+  }
+
+  .moviecard:hover {
+    transform: scale(1.02);
+  }
+}
