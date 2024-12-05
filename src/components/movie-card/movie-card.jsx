@@ -1,3 +1,4 @@
+import './movie-card.scss';
 import {Link} from 'react-router-dom';
 import {Button, Card} from 'react-bootstrap';
 import PropTypes from 'prop-types';
