@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {MovieCard} from '../movie-card/movie-card';
+import {Col, Row} from 'react-bootstrap';
 
 export const FavoriteMovies = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -26,26 +27,28 @@ export const FavoriteMovies = () => {
         setFavoriteMovieIds(data.favoriteMovies);
         // console.log(data.favoriteMovies);
       })
-      .catch((error) => console.error('Error fetching data: ', error));
-  }, [user.Username, token, favoriteMovieIds]); // fetch when component mounts, favoriteMovieIds change
+      .catch((error) => {
+        console.error('Error fetching data: ', error);
+      });
+  }, []);
 
   return (
     <>
-      <h2>Favorite Movies</h2>
+      <Row>
+        <h2>Favorite Movies</h2>
+      </Row>
 
-      {favoriteMovies.length === 0 ? (
-        <p>No favorite movies</p>
-      ) : (
-        <ul>
-          {favoriteMovies.map((movie) => (
-            <li key={movie._id}>
-              <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
-                {movie.Title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <Row>
+        {favoriteMovies.length === 0 ? (
+          <p>No favorite movies</p>
+        ) : (
+          favoriteMovies.map((movie) => (
+            <Col className="mb-4" key={movie._id} md={3}>
+              <MovieCard movie={movie} />
+            </Col>
+          ))
+        )}
+      </Row>
     </>
   );
 };

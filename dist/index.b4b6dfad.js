@@ -2953,6 +2953,8 @@ $parcel$ReactRefreshHelpers$98a3.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
 var _client = require("react-dom/client");
 var _container = require("react-bootstrap/Container");
 var _containerDefault = parcelHelpers.interopDefault(_container);
@@ -2967,17 +2969,17 @@ const MyFlixApplication = ()=>{
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _containerDefault.default), {
             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
                 fileName: "src/index.jsx",
-                lineNumber: 13,
+                lineNumber: 14,
                 columnNumber: 9
             }, undefined)
         }, void 0, false, {
             fileName: "src/index.jsx",
-            lineNumber: 12,
+            lineNumber: 13,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/index.jsx",
-        lineNumber: 11,
+        lineNumber: 12,
         columnNumber: 5
     }, undefined);
 };
@@ -2985,11 +2987,18 @@ _c = MyFlixApplication;
 // root finder
 const container = document.querySelector("#root");
 const root = (0, _client.createRoot)(container);
-root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MyFlixApplication, {}, void 0, false, {
+// tells React to render your app in the root DOM
+root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).StrictMode, {
+    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MyFlixApplication, {}, void 0, false, {
+        fileName: "src/index.jsx",
+        lineNumber: 27,
+        columnNumber: 5
+    }, undefined)
+}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 22,
-    columnNumber: 13
-}, undefined)); // Tells React to render your app in the root DOM element
+    lineNumber: 26,
+    columnNumber: 3
+}, undefined));
 var _c;
 $RefreshReg$(_c, "MyFlixApplication");
 
@@ -2998,7 +3007,7 @@ $RefreshReg$(_c, "MyFlixApplication");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","react-bootstrap/Container":"hEdsw","./components/main-view/main-view":"4gflv","./index.scss":"lJZlQ","./redux/store":"bDp2K","react-redux":"62sf7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","react-bootstrap/Container":"hEdsw","./components/main-view/main-view":"4gflv","./index.scss":"lJZlQ","./redux/store":"bDp2K","react-redux":"62sf7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -43393,9 +43402,21 @@ var _s = $RefreshSig$();
 const FavoritesButton = ({ movie })=>{
     _s();
     const [favorites, setFavorites] = (0, _react.useState)([]);
-    const handleFavoriteToggle = async (movieId)=>{
-        const user = JSON.parse(localStorage.getItem("user"));
-        const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+    (0, _react.useEffect)(()=>{
+        fetch(`https://cinematech-api-21d2d91d86c8.herokuapp.com/users/${user.Username}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>response.json()).then((data)=>{
+            setFavorites(data.favoriteMovies); // set fetched favorites to state
+        // console.log(data.favoriteMovies);
+        }).catch((error)=>{
+            console.error("Error fetching favorite movies:", error);
+        });
+    }, []); // dependency array = fetches when component mounts
+    const handleFavoriteToggle = (movieId)=>{
         const isCurrentlyFavorited = favorites.includes(movieId);
         fetch(`https://cinematech-api-21d2d91d86c8.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
             method: isCurrentlyFavorited ? "DELETE" : "POST",
@@ -43422,11 +43443,11 @@ const FavoritesButton = ({ movie })=>{
         children: favorites.includes(movie._id) ? "Unfavorite" : "Favorite"
     }, void 0, false, {
         fileName: "src/components/profile-view/favorites-button.jsx",
-        lineNumber: 40,
+        lineNumber: 56,
         columnNumber: 5
     }, undefined);
 };
-_s(FavoritesButton, "8/j46ayqkxuOXjyrDl2B5q17iyc=");
+_s(FavoritesButton, "gYNGUuNbE7AW8shO5JZPpsJJ/gw=");
 _c = FavoritesButton;
 var _c;
 $RefreshReg$(_c, "FavoritesButton");
@@ -48355,7 +48376,8 @@ parcelHelpers.export(exports, "FavoriteMovies", ()=>FavoriteMovies);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactRedux = require("react-redux");
-var _reactRouterDom = require("react-router-dom");
+var _movieCard = require("../movie-card/movie-card");
+var _reactBootstrap = require("react-bootstrap");
 var _s = $RefreshSig$();
 const FavoriteMovies = ()=>{
     _s();
@@ -48374,46 +48396,51 @@ const FavoriteMovies = ()=>{
         }).then((response)=>response.json()).then((data)=>{
             setFavoriteMovieIds(data.favoriteMovies);
         // console.log(data.favoriteMovies);
-        }).catch((error)=>console.error("Error fetching data: ", error));
-    }, [
-        user.Username,
-        token,
-        favoriteMovieIds
-    ]); // fetch when component mounts, favoriteMovieIds change
+        }).catch((error)=>{
+            console.error("Error fetching data: ", error);
+        });
+    }, []);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                children: "Favorite Movies"
-            }, void 0, false, {
-                fileName: "src/components/profile-view/favorite-movies.jsx",
-                lineNumber: 34,
-                columnNumber: 7
-            }, undefined),
-            favoriteMovies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                children: "No favorite movies"
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                    children: "Favorite Movies"
+                }, void 0, false, {
+                    fileName: "src/components/profile-view/favorite-movies.jsx",
+                    lineNumber: 38,
+                    columnNumber: 9
+                }, undefined)
             }, void 0, false, {
                 fileName: "src/components/profile-view/favorite-movies.jsx",
                 lineNumber: 37,
-                columnNumber: 9
-            }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
-                children: favoriteMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                            to: `/movies/${encodeURIComponent(movie._id)}`,
-                            children: movie.Title
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                children: favoriteMovies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                    children: "No favorite movies"
+                }, void 0, false, {
+                    fileName: "src/components/profile-view/favorite-movies.jsx",
+                    lineNumber: 43,
+                    columnNumber: 11
+                }, undefined) : favoriteMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                        className: "mb-4",
+                        md: 3,
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                            movie: movie
                         }, void 0, false, {
                             fileName: "src/components/profile-view/favorite-movies.jsx",
-                            lineNumber: 42,
+                            lineNumber: 47,
                             columnNumber: 15
                         }, undefined)
                     }, movie._id, false, {
                         fileName: "src/components/profile-view/favorite-movies.jsx",
-                        lineNumber: 41,
+                        lineNumber: 46,
                         columnNumber: 13
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/components/profile-view/favorite-movies.jsx",
-                lineNumber: 39,
-                columnNumber: 9
+                lineNumber: 41,
+                columnNumber: 7
             }, undefined)
         ]
     }, void 0, true);
@@ -48432,7 +48459,7 @@ $RefreshReg$(_c, "FavoriteMovies");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-redux":"62sf7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-router-dom":"9xmpe"}],"lJZlQ":[function() {},{}],"bDp2K":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-redux":"62sf7","../movie-card/movie-card":"bwuIu","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"lJZlQ":[function() {},{}],"bDp2K":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "store", ()=>store);

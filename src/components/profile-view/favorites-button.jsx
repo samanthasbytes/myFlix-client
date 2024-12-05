@@ -1,13 +1,29 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Button} from 'react-bootstrap';
 
 export const FavoritesButton = ({movie}) => {
   const [favorites, setFavorites] = useState([]);
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
 
-  const handleFavoriteToggle = async (movieId) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = localStorage.getItem('token');
+  useEffect(() => {
+    fetch(
+      `https://cinematech-api-21d2d91d86c8.herokuapp.com/users/${user.Username}`,
+      {
+        headers: {Authorization: `Bearer ${token}`}
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setFavorites(data.favoriteMovies); // set fetched favorites to state
+        // console.log(data.favoriteMovies);
+      })
+      .catch((error) => {
+        console.error('Error fetching favorite movies:', error);
+      });
+  }, []); // dependency array = fetches when component mounts
 
+  const handleFavoriteToggle = (movieId) => {
     const isCurrentlyFavorited = favorites.includes(movieId);
 
     fetch(
